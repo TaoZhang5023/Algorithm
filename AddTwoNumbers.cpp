@@ -11,8 +11,8 @@ using namespace std;
 
 ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
     int carry = 0;
-    ListNode *head;
-    ListNode *list;
+    ListNode *head = NULL;
+    ListNode *list = NULL;
     if(l1 == NULL){
         return l2;
     }else if(l2 == NULL){
@@ -21,11 +21,9 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
     do{
         int val1 = l1? l1->val : 0;
         int val2 = l2? l2->val : 0;
-
         int val = (val1 + val2 + carry);
         carry = val/10;
         val = val%10;
-        cout << val1 << " " << val2 << endl; 
         ListNode* tempNode = new ListNode(val);
         if(head == NULL){
             list = tempNode;
@@ -37,7 +35,6 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         l1 = l1? l1->next : NULL;
         l2 = l2? l2->next : NULL;
     }while(l1 != NULL || l2 !=NULL || carry != 0);
-    cout << endl;
     return head;
 }
 
