@@ -32,11 +32,42 @@ int lengthOfLongestSubstring(string s) {
     return ans;
 }
 
+//slide window
+int lengthOfLongestSubstringQuicker(string s) {
+    int length = s.length();
+    if(length <= 1){ return length;}
+    map<char, int> hashmap;//use hashmap to check if there is a duplicated char
+    int ans = 1;
+    hashmap.insert(make_pair(s[0],0));
+    for(int window=1; window<length; window++){
+        if(hashmap.find(s[window]) != hashmap.end()){
+            if(hashmap.size() > ans){
+                ans = hashmap.size();
+            }
+            hashmap.clear();
+        }
+        hashmap.insert(make_pair(s[window],window));
+    }
+    if(hashmap.size() > ans){
+        ans = hashmap.size();
+    }
+    return ans;
+
+}
+
 int main(){
     string tests[4] = {"abcabcbb", "bbbbbbb", "pwwkew", "abcabcdb"};
     int anses[4] = {3,1,3,4};
     for(int i=0; i<4; i++){
         if(lengthOfLongestSubstring(tests[i]) == anses[i]){
+            cout << "pass test " << i << "!" << endl;
+        }else{
+            cout << "fail test " << i << "!" << endl;
+        }
+    }
+
+    for(int i=0; i<4; i++){
+        if(lengthOfLongestSubstringQuicker(tests[i]) == anses[i]){
             cout << "pass test " << i << "!" << endl;
         }else{
             cout << "fail test " << i << "!" << endl;
