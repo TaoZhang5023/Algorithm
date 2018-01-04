@@ -40,19 +40,22 @@ int lengthOfLongestSubstringQuicker(string s) {
     int ans = 1;
     hashmap.insert(make_pair(s[0],0));
     for(int window=1; window<length; window++){
-        if(hashmap.find(s[window]) != hashmap.end()){
+        map<char,int>::iterator it = hashmap.find(s[window]);
+        if( it != hashmap.end()){
             if(hashmap.size() > ans){
                 ans = hashmap.size();
             }
             hashmap.clear();
+            window = it->second + 1;
+            
         }
         hashmap.insert(make_pair(s[window],window));
+        
     }
     if(hashmap.size() > ans){
         ans = hashmap.size();
     }
     return ans;
-
 }
 
 int main(){
